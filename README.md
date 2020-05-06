@@ -1,2 +1,4 @@
-# poject-init-uni-app
+# dugao
 初始化的uni-app项目
+
+### 现在只弄了小程序可用的一些封装和登录，之后添加app会完善的
