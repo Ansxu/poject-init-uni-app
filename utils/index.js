@@ -145,8 +145,8 @@ export function autoImg(img) {
 
 
 // 后退到上一页,节流
-export function navigateBack(){
-  debounce(function(){uni.navigateBack();},2000)
+export function navigateBack(time=500){
+  debounce(function(){uni.navigateBack();},time)
 }
 // 跳转url,带参
 export function navigate(url,params,isLogin){
@@ -180,6 +180,25 @@ export function switchTab(url,params,isLogin){
     })
   }
   uni.switchTab({
+    url:`/pages/${url}?${p}`
+  })
+}
+
+// 关闭当前页面跳转url,带参
+export function redirect(url,params,isLogin){
+  console.log(url,'url')
+  if(isLogin&&!judgeLogin()){
+    return;
+  }
+  let p ='';
+  if(params){
+    let arr = Object.keys(params);
+    arr.map((item,index)=>{
+      p+=`${item}=${params[item]}`;
+      if(index<arr.length-1){p+='&'};
+    })
+  }
+  uni.redirectTo({
     url:`/pages/${url}?${p}`
   })
 }

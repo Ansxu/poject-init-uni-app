@@ -1,0 +1,161 @@
+
+.search /deep/ .uni-searchbar__box{
+    border-style:'none';
+    border-width:0;
+}
+.searchpic{
+    width:26rpx;
+    height:26rpx;
+    left:20rpx;
+    margin-top:-13rpx;
+}
+.canclepic{
+    width:29rpx;
+    height:29rpx;
+    right:20rpx;
+    margin-top:-15rpx;
+}
+.topinput{
+    background: #f1f1f1;
+    border-radius: 30rpx;
+    position: relative;
+    padding:8rpx;
+    margin:0 20rpx;
+}
+.topinput input{
+    font-size:24rpx;
+    padding-left:50rpx;
+    color:#ccc;
+}
+.can{
+    width:40rpx;
+    height:32rpx;
+    vertical-align: middle;
+    margin-right:15rpx;
+}
+.title{
+    font-size: 30rpx;
+    // font-weight: bold;
+    padding:30rpx 0;
+}
+.mylocal{
+    border-bottom:1upx solid #e8e8e8;
+    margin-left:30upx;
+    .reload{
+        font-size:28upx;
+        border:1upx solid #e8e8e8;
+        padding:0 20upx;
+        color:#666;
+        border-radius:7upx;
+        p{
+            margin-left:10upx;
+        }
+    }
+}
+.pl30{
+  padding-left:30upx!important;
+}
+.itemlocat{
+    padding:10rpx 20rpx;
+    font-size:bold;
+    justify-content: flex-start;
+    background:rgb(92, 197, 154);
+    border-radius:10upx;color:#fff;
+}
+.itemlocat div{
+    display: inline-block;
+}
+.name{
+    border-radius: 5rpx;
+    line-height:55rpx;
+    text-align:center;
+    padding:0 30rpx;
+}
+.chose{
+    margin-left:50rpx;
+}
+.cityhot{
+    flex-flow:row wrap;
+    padding:0rpx 0 20rpx 30rpx;
+}
+.cityhot div{
+    // width:23%;
+    line-height:2.5;
+    margin-top:20rpx;
+    margin-right:20rpx;
+    background:rgb(239, 243, 246);
+}
+.cityindo{
+    padding:0 30rpx;
+}
+.cityindo div{
+    padding:30rpx 0;
+}
+.citylist{
+    .item{
+        background:#f2f2f2;
+        line-height:2;
+    }
+}
+.container-inner {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .searchLetter {
+    flex-shrink: 0;
+    width: 80rpx;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    color: #666;
+    .tab{
+        color:#999;
+        font-size:24upx;
+        line-height:1;
+    }
+  }
+  
+  .searchLetter div {
+    margin-top: 20rpx;
+  }
+  
+  .touchClass {
+    background-color: #fff;
+    color: #fff;
+    padding-top: 16rpx;
+    padding-bottom: 16rpx;
+  }
+  
+  .showSlectedLetter {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin: -100rpx;
+    width: 200rpx;
+    height: 200rpx;
+    border-radius: 20rpx;
+    font-size: 52rpx;
+    z-index: 1;
+  }
+  
+  .thishotText {
+    color: #999;
+    margin: 0 !important;
+    div{
+        font-size: 20rpx;
+    }
+  }
+  input {
+    background-color: #eee;
+  }
