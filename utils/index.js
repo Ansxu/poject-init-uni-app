@@ -143,8 +143,17 @@ export function autoImg(img) {
   return img;
 }
 
+
+// 后退到上一页,节流
+export function navigateBack(){
+  debounce(function(){uni.navigateBack();},2000)
+}
 // 跳转url,带参
-export function navigate(url,params){
+export function navigate(url,params,isLogin){
+  // 判断是否已登录
+  if(isLogin&&!judgeLogin()){
+    return;
+  }
   let p ='';
   if(params){
     let arr = Object.keys(params);
@@ -154,6 +163,23 @@ export function navigate(url,params){
     })
   }
   uni.navigateTo({
+    url:`/pages/${url}?${p}`
+  })
+}
+// 跳转url,带参
+export function switchTab(url,params,isLogin){
+  if(isLogin&&!judgeLogin()){
+    return;
+  }
+  let p ='';
+  if(params){
+    let arr = Object.keys(params);
+    arr.map((item,index)=>{
+      p+=`${item}=${params[item]}`;
+      if(index<arr.length-1){p+='&'};
+    })
+  }
+  uni.switchTab({
     url:`/pages/${url}?${p}`
   })
 }
@@ -167,4 +193,28 @@ export function CreatOnlyVal() {
       return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
   });
   return uuid;
+}
+// 复制
+export function copy(data){
+  uni.setClipboardData({
+    data,
+    success(){
+      toast('复制成功',{icon:true})
+    },
+    fail(){
+      toast('复制失败，请重试！')
+    }
+  })
+}
+// 复制电话
+export function call(phone){
+  uni.makePhoneCall({
+    phoneNumber:phone+'',
+    success(res){
+
+    },
+    fail(){
+      toast('呼叫失败，请重试！')
+    }
+  })
 }

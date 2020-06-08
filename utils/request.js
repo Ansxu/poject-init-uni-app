@@ -1,5 +1,5 @@
 
-import {host,judgeLogin,toast} from '@/utils'
+import {host,judgeLogin,toast,navigate,navigateBack} from '@/utils'
 
 
   // get请求；
@@ -44,6 +44,7 @@ function request(url, method, data) {
           'content-type': 'application/json;charset=utf-8' // 默认值
         },
         success: function (res) {
+          uni.hideLoading();
           if(res.statusCode===200){
             const ret = res.data;
             switch (ret.errcode) {
@@ -64,9 +65,7 @@ function request(url, method, data) {
                       content:'是否跳转到登录页面？',
                       success(res){
                         if(res.confirm){
-                          uni.navigateTo({
-                            url: LoginPath
-                          })
+                          navigate(LoginPath)
                         }
                       },
                       complete(){
@@ -85,15 +84,17 @@ function request(url, method, data) {
             }
           }else{
             toast('服务器繁忙，请稍后重试')
+            navigateBack();
             reject()
           }
         },
         fail: function (error) {
+          uni.hideLoading();
           toast('服务器繁忙，请稍后重试')
+          navigateBack();
           reject(error)
         },
         complete: function () {
-          uni.hideLoading();
         }
       })
     })
