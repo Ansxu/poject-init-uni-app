@@ -80,7 +80,8 @@ let throtteStatus = false
 export function throtte(fn, wait = 500) {
   if (throtteStatus) return;
   throtteStatus = true;
-  setTimeout(fn, wait)
+  fn();
+  // setTimeout(fn, wait)
   setTimeout(() => {
     throtteStatus = false;
   }, wait)
