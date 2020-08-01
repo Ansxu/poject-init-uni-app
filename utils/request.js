@@ -30,7 +30,8 @@ const code={
   resCode1:200,//成功特别方式
 }
 
-//请求封装
+//请求封装，
+// 20200731--去掉reject返回，在uniapp里promise请求如果没有监听到reject会报错，改成每次请求做code不等于0的判断（if(res.code)return;）
 function request(url, method, data) {
     uni.showLoading({
       title: '加载中' //数据请求前loading
@@ -76,23 +77,23 @@ function request(url, method, data) {
                 break;
               case code.fail:
                 toast(ret.msg)
-                reject(ret)
+                resolve(ret)
                 break;
               default:
                 toast(ret.msg)
-                reject(ret)
+                resolve(ret)
             }
           }else{
             toast('服务器繁忙，请稍后重试')
             navigateBack();
-            reject()
+            resolve()
           }
         },
         fail: function (error) {
           uni.hideLoading();
           toast('服务器繁忙，请稍后重试')
           navigateBack();
-          reject(error)
+          resolve(error)
         },
         complete: function () {
         }

@@ -138,16 +138,16 @@ export function saveFile(filePath){
 
 // 更改图片展示，判断是否带链接图片
 export function autoImg(img) {
-  if (img.indexOf('http') === -1) {
+  if (img&&img.indexOf('http') === -1) {
     return filePath + img
   }
   return img;
 }
 
 
-// 后退到上一页,节流
-export function navigateBack(time=500){
-  debounce(function(){uni.navigateBack();},time)
+// 后退到上一页,节流，多少秒内只允许执行一次
+export function navigateBack(time=1000){
+  throtte(function(){uni.navigateBack();},time)
 }
 // 跳转url,带参
 export function navigate(url,params,isLogin){

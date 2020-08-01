@@ -6,13 +6,13 @@
             <div class="top-box">
                 <div class="proinfo">
                     <div class="img-box">
-                        <img :src="selectSku.img||productInfo.img" alt="">
+                        <img :src="selectSku.img||proInfo.img" alt="">
                     </div>
                     <div class="right">
                         <div>
-                            <!-- <p class="tit">{{productInfo.name}}</p> -->
-                            <span><span class="fuhao">￥</span>{{selectSku.price||productInfo.price}}</span>
-                            <p class="font_four">库存：{{selectSku.num||productInfo.stock}}</p>
+                            <!-- <p class="tit">{{proInfo.name}}</p> -->
+                            <span><span class="fuhao">￥</span>{{selectSku.price||proInfo.price}}</span>
+                            <p class="font_four">库存：{{selectSku.num||proInfo.stock}}</p>
                             <p v-if="skuAll.length">{{selectSku.text?'已选：':'请选择商品规格'}}{{selectSku.text}}</p>
                                 <!-- :SpecInfo.PunitPrice -->
                         </div>
@@ -136,7 +136,7 @@ export default {
         return [];
       }
     },
-    productInfo:{
+    proInfo:{
       type:Object,
       default(){
         return {
@@ -160,8 +160,10 @@ export default {
     sku:{
       handler(e){
         // 赋值为组件内data声明变量，兼容小程序组件
+        console.log('小程序改变',this.proInfo);
         this.thisSku = JSON.parse(JSON.stringify(this.sku));
         this.isUseSku();
+        this.init();
         this.setSelectSkuItem();
       },
       deep:true
@@ -193,8 +195,13 @@ export default {
     // 赋值为组件内data声明变量，兼容小程序组件
     this.thisSku = JSON.parse(JSON.stringify(this.sku));
     this.isUseSku();
+    this.init();
   },
   methods: {
+    init(){
+      this.goodsNum = this.proInfo.minbuy||1;
+      this.selectSku.buyNum = this.proInfo.minbuy||1;
+    },
     //type =   addCar加入购物车  buy立即购买
     success(type){
       if(this.skuAll.length&&this.hasSku){ 
@@ -215,18 +222,6 @@ export default {
     hidePopup(){
       this.$emit('close')
     },
-    // clickSelectSku(skuIndex,index,item){
-    //   // let obj = item;
-    //   // obj.selectStatus = !obj.selectStatus;
-    //   // this.sku[skuIndex].list[index] = obj;
-    //   let list = this.sku[skuIndex].list;
-    //   list[index].selectStatus = !item.selectStatus;
-    //   console.log(list,'list')
-    //   this.$set(this.sku[skuIndex],'title','123');
-    //   console.log(this.sku,'this.sku')
-
-    //   // console.log(item,'item')
-    // },
     // 选择sku
     onSelectSku(val, index) {
       // 判断是否为不可选状态
@@ -293,8 +288,8 @@ export default {
               value,
               buyNum:this.goodsNum
             };
-            this.productInfo.stock = skuAllItem.num;
-            this.goodsNum=1;
+            this.proInfo.stock = skuAllItem.num;
+            this.goodsNum=this.proInfo.minbuy||1;
             this.$emit("getSkuData", skuAllItem);//更新了sku
           }
         });
@@ -373,9 +368,9 @@ export default {
     },
     // 更改数量
 		suan(tip) {
-      const minbuy = this.productInfo.minbuy;
-      const maxbuy = this.productInfo.maxbuy;
-      const stock = this.productInfo.stock;
+      const minbuy = this.proInfo.minbuy;
+      const maxbuy = this.proInfo.maxbuy;
+      const stock = this.proInfo.stock;
 			if (tip == 1) {
 				if (this.goodsNum > 1) {
 					if (this.goodsNum > minbuy) {
@@ -387,6 +382,7 @@ export default {
 							icon: 'none',
 							duration: 1500
 						});
+            return;
 					}
 				}
 			} else if (tip == 2) {
@@ -397,7 +393,8 @@ export default {
 							title: '库存不足！',
 							icon: 'none',
 							duration: 1500
-						});
+            });
+            return;
 					} else {
 						this.goodsNum++;
 					}
@@ -412,9 +409,16 @@ export default {
 								icon: 'none',
 								duration: 1500
 							});
+              return;
 						}
 					} else {
 						this.goodsNum = stock;
+						uni.showToast({
+							title: '库存不足！',
+							icon: 'none',
+							duration: 1500
+            });
+            return;
 					}
 				}
       }
@@ -433,18 +437,7 @@ export default {
 </script>
 <style scoped lang="scss">
 .mengban{
-    // width: 100vw;
-    // height: 100vh;
-    // background-color: rgba(0, 0, 0, 0.5);
-    // position: fixed;
-    // top: 0;
-
-    // z-index: 98;
     .main{
-        // position: fixed;
-        // bottom: 0;
-        // left:0;
-        // z-index: 99;
         width: 100vw;
         background-color: #fff;
         border-radius: 20rpx 20rpx 0 0;
@@ -458,27 +451,6 @@ export default {
           right: 10upx;
           line-height:1;
         }
-        // .guige{
-        //     p{
-        //         font-size: 28rpx;
-        //         color: #333;
-        //         line-height: 80rpx;
-        //     }
-        //     span{
-        //         background-color: #f5f5f5;
-        //         color: #666;
-        //         font-size: 24rpx;
-        //         padding: 10rpx 20rpx;
-        //         border-radius: 10rpx;
-        //         margin: 0 20rpx 20rpx 0;
-        //         border: 1rpx solid #f5f5f5;
-        //     }
-        //     .active{
-        //       background-color:#f9eeec;
-        //       color: #f0370b;
-        //       border: 1rpx solid #f0370b;
-        //     }
-        // }
         .top-box{
             padding: 0 30rpx 130rpx;
             .proinfo{
