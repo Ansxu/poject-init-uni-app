@@ -8,33 +8,59 @@
                     <view class="coupon-item" v-for="(item,index) in list" :key="index">
                         <view class="coupon-left">
                             <view class="coupon-price">
-                                <block v-if="1"><text>￥</text><text class="price">456</text></block>
-                                <block v-else><text class="price">7.5</text><text>折</text></block>
-                                <text class="coupon-name">限时优惠券</text>
+                                <block v-if="item.discountType==1"><text>￥</text><text class="price">{{item.denomination}}</text></block>
+                                <block v-else><text class="price">{{item.denomination}}</text><text>折</text></block>
+                                <text class="coupon-name">{{item.name}}</text>
                             </view>
-                            <view class="coupon-condition">满100元可用</view>
-                            <view class="conpon-date">2019-4-5到2020-1-2</view>
+                            <view class="coupon-condition">{{item.meetConditions}}</view>
+                            <view class="conpon-date">{{item.startTime}}到{{item.endTime}}</view>
                         </view>
                         <view class="coupon-line"></view>
                         <view class="coupon-right">
-                            <view class="coupon-get" @click="getCoupon(item)">立即领取</view>
+                            <view class="coupon-get" v-if="item.isReceive">{{isGetTitle}}</view>
+                            <view class="coupon-get" v-else @click="$emit('getCoupon',item)">{{getTitle}}</view>
                         </view>
                     </view>
                     
                 </scroll-view>
             </view>
-            <view class="coupon-confirm" @click="$emit('close')">完成</view>
+            <view class="coupon-confirm" @click="$emit('confirm')">完成</view>
         </view>
     <!-- </uni-popup> -->
 </template>
 <script>
-//此组件需搭配uni-popup使用,每个后台返回字段不同，就不做统一转换了，直接每个项目的数据字段替换一下
+//此组件需搭配uni-popup使用,
+// 考虑的可能多个接口返回优惠券列表,统一以下字段
+// 参数
+// 优惠券列表
+// list:[{
+// 	denomination:Number,//优惠券金额，如果是折扣优惠券显示折扣
+// 	discountType:Number,//优惠券类型，1-立减券，2-折扣券
+// 	name:String,//名称
+// 	conditions:String,//满足多少可用，
+// 	startTime:String,//开始时间
+// 	endTime:String,//结束时间
+// 	isReceive:Number||Boolean,//是否已领取
+// }],
+// getTitle:String;--领取优惠券文字
+// isGetTitle:String;--已领取优惠券文字
+// 事件
+// getCoupon--领取优惠券,参数-item
+// confirm--点击完成
 export default {
     props:{
         list:{
             type:Array,
-            detail(){return [];}
-        },
+            default:()=>{return [];}
+		},
+		getTitle:{
+			type:String,
+			default: '立即领取'
+		},
+		isGetTitle:{
+			type:String,
+			default: '已领取'
+		},
     },
     data(){
         return{
