@@ -214,6 +214,20 @@ export function CreatOnlyVal() {
   });
   return uuid;
 }
+
+// 字符串长度,中文2个字符,英文1个字符
+export function strLength(str) {    
+    var len = 0;    
+    for (var i=0; i<str.length; i++) {    
+        if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {    
+             len += 2;    
+         } else {    
+             len ++;    
+         }    
+     }    
+    return len;    
+}  
+
 // 复制
 export function copy(data){
   uni.setClipboardData({
