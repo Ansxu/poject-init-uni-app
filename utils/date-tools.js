@@ -122,3 +122,33 @@ export function timeDiff(time) {
   return diff;
 }
 
+//sDate1和sDate2是2006-12-18格式 得出量日期之间的天数
+export function dateSpace(sDate1, sDate2) {
+	var dateSpan, tempDate, iDays;
+	sDate1 = Date.parse(sDate1);
+	sDate2 = Date.parse(sDate2);
+	dateSpan = sDate2 - sDate1;
+	dateSpan = Math.abs(dateSpan);
+	iDays = Math.floor(dateSpan / (24 * 3600 * 1000));
+	return iDays;
+}
+
+// params--接收字符串,日期对象或者数组（数组三个值）
+// type= 'arr'--数组；'str'--用某个字符拼接的字符串
+export function initDate(params,type='arr'){
+  let date = null;
+  if(params instanceof Array){
+    date = new Date(params[0],params[1],params[2])
+  }else{
+    date = new Date(params)
+  }
+  console.log(params,'p')
+  const y = date.getFullYear();
+  const m = date.getMonth()+1;
+  const d = date.getDate();
+  if(type==='arr'){
+    return [y,formatNumber(m),formatNumber(d)];
+  }else{
+    return `${y}${type}${formatNumber(m)}${type}${formatNumber(d)}`
+  }
+}

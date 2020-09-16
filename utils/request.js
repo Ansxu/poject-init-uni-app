@@ -1,5 +1,5 @@
 
-import {host,judgeLogin,toast,navigate,navigateBack} from '@/utils'
+import {host,judgeLogin,toast,navigate,navigateBack} from '../pages/login-MP/node_modules/@/utils'
 
 
   // get请求；

@@ -2,7 +2,7 @@
 	<view class="emptybox">
 		<view class="iconimg">
 			<view class="iconfont icon-wushuju" v-if="mode==='icon'"></view>
-			<image class="img" v-if="mode==='img'" src="/static/notData.png" mode="widthFix"></image>
+			<image class="img" v-if="mode==='img'&&notDataImg" :src="notDataImg" mode="widthFix"></image>
 		</view>
 		<view class="tips uni-center">{{tipsTitle}}</view>
 		<div class="tips-min" v-if="tipsText">{{tipsText}}</div>
@@ -10,7 +10,9 @@
 </template>
 
 <script>
+// 列表的无数据组件
 	export default {
+		name:'no-date',
 		props: {
 			tipsTitle:{
 				type:String,
@@ -23,16 +25,16 @@
 			// icon--图标；img--图片
 			mode:{
 				type:String,
-				default:'icon'
+				default:'img'
 			}
 		},
 		data() {
 			return {
-				
+				notDataImg:'',
 			};
 		},
 		created: function(){
-			
+			this.notDataImg= '';
 		}
 	}
 </script>
@@ -48,6 +50,6 @@
   }
  .iconimg .img{ display: block; width: 400upx; margin: 0 auto 20upx;}
  .iconimg .iconfont{ display: block; font-size: 80upx; color: #999; margin: 0 auto;}
- .emptybox .tips{ color: #333;font-size:32upx;line-height:2;}
- .emptybox .tips-min{ color: #666; font-size:26upx;}
+ .emptybox .tips{ color: #666;font-size:32upx;line-height:2;}
+ .emptybox .tips-min{ color: #888; font-size:26upx;}
 </style>

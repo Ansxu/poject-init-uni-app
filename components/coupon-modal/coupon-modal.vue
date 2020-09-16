@@ -1,7 +1,7 @@
 <template>
     <!-- 弹出优惠券 -->
     <!-- <uni-popup type="bottom" ref="couponWin"> -->
-        <view class="coupon-modal">
+        <view class="coupon-modal" :style="{'padding-bottom':safeDistance+'rpx'}">
             <view class="title">优惠</view>
             <view class="content">
                 <scroll-view scroll-y class="coupon-list">
@@ -18,7 +18,7 @@
                         <view class="coupon-line"></view>
                         <view class="coupon-right">
                             <view class="coupon-get" v-if="item.isReceive">{{isGetTitle}}</view>
-                            <view class="coupon-get" v-else @click="$emit('getCoupon',item)">{{getTitle}}</view>
+                            <view class="coupon-get" v-else @click="$emit('get-coupon',item)">{{getTitle}}</view>
                         </view>
                     </view>
                     
@@ -29,6 +29,7 @@
     <!-- </uni-popup> -->
 </template>
 <script>
+// 领取优惠券
 //此组件需搭配uni-popup使用,
 // 考虑的可能多个接口返回优惠券列表,统一以下字段
 // 参数
@@ -45,7 +46,7 @@
 // getTitle:String;--领取优惠券文字
 // isGetTitle:String;--已领取优惠券文字
 // 事件
-// getCoupon--领取优惠券,参数-item
+// get-coupon--领取优惠券,参数-item
 // confirm--点击完成
 export default {
     props:{
@@ -61,6 +62,11 @@ export default {
 			type:String,
 			default: '已领取'
 		},
+		// 底部安全距离
+		safeDistance:{
+			type:[String,Number],
+			default: 20
+		}
     },
     data(){
         return{

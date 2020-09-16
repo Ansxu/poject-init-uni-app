@@ -75,6 +75,7 @@
   </div>
 </template>
 <script>
+// 支付弹窗
 //##  参数：
 // total--支付价格（确认与后台支付金额一致)
 // orderNumber -- 订单编号

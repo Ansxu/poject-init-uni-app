@@ -30,6 +30,10 @@ export function previewImage(url,nowImg){
 export function pathToBase64(path) {
 	// uni.arrayBufferToBase64(arr)转bast64
 	return new Promise(function(resolve, reject) {
+		// 如果为网络路径先下载图片，注意h5跨域问题
+		if(path.indexOf('http')!==-1){
+			path = await downFile(path);
+		}
 		// h5图片路径必须同域
 		if (typeof window === 'object' && 'document' in window) {
 			var canvas = document.createElement('canvas')
@@ -65,6 +69,7 @@ export function pathToBase64(path) {
 			bitmap.load(path, function() {
 				try {
 					var base64 = bitmap.toBase64Data()
+					// base64 = base64.replace('data:image/jepg;','data:image/jpeg;')
 				} catch (error) {
 					reject(error)
 				}
@@ -94,7 +99,20 @@ export function pathToBase64(path) {
 		}
 	})
 }
-
+// 下载文件
+export function downFile(url){
+	return new Promise((resolve,reject)=>{
+		uni.downloadFile({
+			url,
+			success(res){
+				resolve(res.tempFilePath)
+			},
+			fail(err){
+				reject(err)
+			}
+		})
+	})
+}
 export function base64ToPath(base64) {
 	return new Promise(function(resolve, reject) {
 		if (typeof window === 'object' && 'document' in window) {

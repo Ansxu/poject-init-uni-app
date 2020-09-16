@@ -1,4 +1,7 @@
-
+// 顶部状态栏，刘海屏适配
+.adapt-top{
+	padding-top:var(--status-bar-height);
+}
 page{
   // font-family:"Microsoft YaHei",'微软雅黑',sans-serif;
   color:$font;background:$white;
@@ -8,9 +11,29 @@ page{
 view{padding:0;margin:0;box-sizing:border-box;}
 a{text-decoration: none;color:inherit;}
 
+input{
+	box-sizing:border-box;
+	outline:none;
+	background:none;
+	border:none;
+	resize: none;
+}
 image {
 	vertical-align: middle;
 }
+
+/* 去除button默认样式 */
+button::after {
+  border: none;
+}
+button {
+background-color: transparent;
+padding-left: 0;
+padding-right: 0;
+line-height:inherit;
+border-radius:0;
+}
+
 .wmain{
   // min-width:1200upx;
   max-width:1200upx;
@@ -33,6 +56,19 @@ h5{
 }
 .font0{
   font-size:0;
+}
+.bgfff{
+  background:#fff;
+}
+.bb1{
+  border-bottom:1upx solid #f2f2f2;
+}
+.not-data{
+	color:#999;
+	text-align:center;
+	line-height:3;
+	width:100%;
+	// padding-bottom:40upx;
 }
 .gap20{
 	background: #f5f5f5;

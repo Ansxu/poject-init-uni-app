@@ -1,0 +1,82 @@
+.p30 {
+	padding: 0 30upx;
+}
+.pt30 {
+	padding-top: 30upx;
+}
+.mt30 {
+	margin-top: 30upx;
+}
+// .mt20 {
+// 	margin-top: 20upx;
+// }
+.p65 {
+	padding-bottom: 65upx;
+}
+.white {
+	color: white;
+}
+.flex-center-center {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.flex-center {
+	display: flex;
+	justify-content: center;
+}
+.bg-blue {
+	background-color: #0AC7DA;
+}
+.blod {
+	font-weight: bold;
+}
+.leftArrow {
+	height: 40upx;
+	image {
+		width: 20upx;
+		height: 40upx;
+	}
+}
+.pay-content {
+	.success {
+		font-size: 40upx;
+		image {
+			width: 50upx;
+			margin-right: 15upx;
+		}
+	}
+}
+.price {
+	height: 70upx;
+	.unit {
+		height: 30upx;
+		font-size: 30upx;
+		align-self: flex-end;
+		margin-bottom: 10upx;
+	}
+	.pay-price {
+		font-size: 70upx;
+		line-height: 1;
+	}
+}
+.button-box {
+	justify-content: space-around;
+	.button-item {
+		border: 1upx solid #FFFFFF;
+		border-radius:  100upx;
+		padding: 15upx 60upx;
+	}
+}
+
+.recommend-box {
+	height: 115upx;
+	image {
+		width: 30upx;
+		height: 30upx;
+	}
+	.recommend-text {
+		font-size: 40upx;
+		padding: 0 20upx;
+	}
+}

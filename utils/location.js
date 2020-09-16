@@ -1,4 +1,4 @@
- import {toast,requestHideLoading} from '@/utils';
+ import {toast,requestHideLoading} from '../pages/login-MP/node_modules/@/utils';
  import QQMapWX from "@/utils/qqmap-wx-jssdk"; //腾讯地图，reverseGeocoder逆地址转码
  let qqmapsdk = new QQMapWX({
      key: "LJTBZ-A5SWU-ZDGVJ-2OV5E-SOKAJ-HIBQI" // 必填
@@ -6,33 +6,39 @@
  // 判断是否获取定位
  export function hasPosition() {
      return new Promise((resolve, reject) => {
-         uni.getSetting({
-             success: res => {
-                 // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
-                 // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
-                 // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
-
-                 //未授权
-                 if (
-                     res.authSetting["scope.userLocation"] != undefined &&
-                     res.authSetting["scope.userLocation"] != true
-                 ) {
-                     toast('获取定位未授权')
-                     reject('未授权');
-                 } else if (res.authSetting["scope.userLocation"] == undefined) {
-                     //用户首次进入页面,调用wx.getLocation的API
-                     getMyPosition().then(res=>{
-                        resolve(res);
-                     });
-                 } else {
-                     //调用wx.getLocation的API
-                     getMyPosition().then(res=>{
-                        resolve(res);
-                     });
-                 }
-             }
-         });
-
+        // #ifdef MP-WEIXIN
+        uni.getSetting({
+            success: res => {
+                // res.authSetting['scope.userLocation'] == undefined    表示 初始化进入该页面
+                // res.authSetting['scope.userLocation'] == false    表示 非初始化进入该页面,且未授权
+                // res.authSetting['scope.userLocation'] == true    表示 地理位置授权
+                //未授权
+                if (
+                    res.authSetting["scope.userLocation"] != undefined &&
+                    res.authSetting["scope.userLocation"] != true
+                ) {
+                    toast('获取定位未授权')
+                    reject('未授权');
+                } else if (res.authSetting["scope.userLocation"] == undefined) {
+                    //用户首次进入页面,调用wx.getLocation的API
+                    getMyPosition().then(res=>{
+                    resolve(res);
+                    });
+                } else {
+                    //调用wx.getLocation的API
+                    getMyPosition().then(res=>{
+                    resolve(res);
+                    });
+                }
+            }
+        });
+        // #endif
+        // #ifndef MP-WEIXIN
+            //调用wx.getLocation的API
+            getMyPosition().then(res=>{
+            resolve(res);
+            });
+        // #endif
      })
  }
  // 重新获取定位授权--废弃

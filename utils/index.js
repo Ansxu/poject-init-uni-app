@@ -20,15 +20,6 @@ export {
   editTime,dateUtils,timeDiff,formatNumber,
 }
 
-// icon--是否显示图标，mask--是否显示防触摸穿透蒙层
-export function toast(title,data={icon:false,mask:false,time:2000}){
-  uni.showToast({
-    title,
-    icon:data.icon?'success':'none',
-    mask:data.mask,
-    duration:data.time
-  })
-}
 //判断是否登录，未登录做弹窗跳转登录页面
 export function judgeLogin(){
   if (!uni.getStorageSync("userId") || !uni.getStorageSync("token")) {
@@ -69,19 +60,18 @@ export function verifyPhone(tel) {
   return true;
 }
 
-// 函数防抖
+// 函数防抖,多少秒内只允许执行一次，重复点击会重新计时
 let timeout = null
 export function debounce(fn, wait = 500) {
   if (timeout !== null) clearTimeout(timeout)
-  timeout = setTimeout(fn, wait)
+  timeout = setTimeout(()=>{fn()}, wait)
 }
-// 函数节流
+// 函数节流,多少秒内只允许执行一次，重复点击会无视
 let throtteStatus = false
 export function throtte(fn, wait = 500) {
   if (throtteStatus) return;
   throtteStatus = true;
   fn();
-  // setTimeout(fn, wait)
   setTimeout(() => {
     throtteStatus = false;
   }, wait)
@@ -144,9 +134,18 @@ export function autoImg(img) {
   return img;
 }
 
-
+// ****************api封装********************
+// icon--是否显示图标，mask--是否显示防触摸穿透蒙层
+export function toast(title,data={icon:false,mask:false,time:2000}){
+  uni.showToast({
+    title,
+    icon:data.icon?'success':'none',
+    mask:data.mask,
+    duration:data.time
+  })
+}
 // 后退到上一页,节流，多少秒内只允许执行一次
-export function navigateBack(time=1000){
+export function navigateBack(time=300){
   throtte(function(){uni.navigateBack();},time)
 }
 // 跳转url,带参
@@ -167,7 +166,7 @@ export function navigate(url,params,isLogin){
     url:`/pages/${url}?${p}`
   })
 }
-// 跳转url,带参
+// 跳转到tabBar,带参
 export function switchTab(url,params,isLogin){
   if(isLogin&&!judgeLogin()){
     return;
@@ -203,7 +202,7 @@ export function redirect(url,params,isLogin){
     url:`/pages/${url}?${p}`
   })
 }
-
+// *****************api封装--end**************
 //产生不相同的字符串
 export function CreatOnlyVal() {
   var d = new Date().getTime();
@@ -240,7 +239,7 @@ export function copy(data){
     }
   })
 }
-// 复制电话
+// 打电话
 export function call(phone){
   uni.makePhoneCall({
     phoneNumber:phone+'',
@@ -251,4 +250,13 @@ export function call(phone){
       toast('呼叫失败，请重试！')
     }
   })
+}
+// 格式化富文本
+export function formattingHTML(str){
+	if(str){
+		str = str.replace(/<img/g,'<img style="max-width:100%; "');
+		return str.replace(/<video/g,'<video style="max-width:100%; "');
+	}else{
+		return str;
+	}
 }
