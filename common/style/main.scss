@@ -18,6 +18,7 @@ input{
 	border:none;
 	resize: none;
 }
+input[disabled]{opacity:1!important;-webkit-opacity: 1!important;}
 image {
 	vertical-align: middle;
 }
@@ -60,6 +61,9 @@ h5{
 .bgfff{
   background:#fff;
 }
+.bt1{
+	border-top:1rpx solid #EFEFEF;
+}
 .bb1{
   border-bottom:1upx solid #f2f2f2;
 }
@@ -85,11 +89,24 @@ h5{
   padding:0 20upx;
   transition:all .2s;
   cursor:pointer;
-  border:1upx solid $btn;
-  &:hover{
-      background:$white;
-      color:$btn;
-      border:1upx solid $btn;
+  &:active{
+      // background:$white;
+	  opacity:.8;
+      // border:1upx solid $btn;
+  }
+}
+.btn-max{
+  background:$btn;
+  color:$white;
+  width:100%;
+  line-height:80rpx;
+  text-align:center;
+  border-radius:10rpx;
+  padding:0 20rpx;
+  transition:all .2s;
+  cursor:pointer;
+  &:active{
+	  opacity:.8;
   }
 }
 .cursor{
@@ -116,13 +133,26 @@ h5{
 }
 // 距离
 .mt20{
-  margin-top:20upx;
+  margin-top:20rpx;
+}
+.mt30{
+  margin-top:30rpx;
+}
+.mt50{
+  margin-top:50rpx;
 }
 .mlr20{
-	margin:0 20upx;
+	margin:0 20rpx;
 }
 .mlr30{
-	margin:0 30upx;
+	margin:0 30rpx;
+}
+.p25{
+	padding:25rpx;
+}
+.plr20{
+	paddin-left:20rpx;
+	paddin-right:20rpx;
 }
 
 // flex
